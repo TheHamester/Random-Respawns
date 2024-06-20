@@ -1,0 +1,13 @@
+modLoader="javafml"
+loaderVersion="[40,)"
+license="CC-BY-SA-4.0"
+[[mods]]
+modId="randomrespawns"
+version="1.18.2-1.0"
+displayName="Random Respawns"
+logoFile="logo.png"
+credits="Axovoxel"
+authors="Hamester"
+description='''
+All Respawns will be random within configurable block radius from the world origin or location of death.
+'''
