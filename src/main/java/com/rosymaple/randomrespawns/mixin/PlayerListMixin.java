@@ -29,10 +29,11 @@ public class PlayerListMixin {
 
     @Inject(method = "respawn(Lnet/minecraft/server/level/ServerPlayer;Z)Lnet/minecraft/server/level/ServerPlayer;", at = @At("HEAD"))
     private void setTimeToZero(ServerPlayer player, boolean keepEverything, CallbackInfoReturnable<ServerPlayer> info) {
-        if(!CommonConfig.SetTimeToZeroOnDeath.get())
-            return;
+        if(CommonConfig.SetTimeToZeroOnRespawn.get())
+            player.getLevel().setDayTime(0);
 
-        player.getLevel().setDayTime(0);
+        if(CommonConfig.SetWeatherClearOnRespawn.get())
+            player.getLevel().setWeatherParameters(6000, 0, false, false);
     }
 
     @Redirect(method = "respawn(Lnet/minecraft/server/level/ServerPlayer;Z)Lnet/minecraft/server/level/ServerPlayer;",
@@ -44,7 +45,7 @@ public class PlayerListMixin {
         Random random = player.getRandom();
         ServerLevel level = player.getLevel();
 
-        int maxRadius = CommonConfig.RandomRespawnRadius.get();
+        int maxRadius = Math.max(1, CommonConfig.RandomRespawnRadius.get());
 
         int originX = 0, originZ = 0;
         if(CommonConfig.DeathPositionIsOrigin.get()) {
@@ -94,6 +95,18 @@ public class PlayerListMixin {
 
         return Optional.of(new Vec3(pos.getX(), pos.getY(), pos.getZ()));
     }
+
+    @Redirect(method = "respawn(Lnet/minecraft/server/level/ServerPlayer;Z)Lnet/minecraft/server/level/ServerPlayer;",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;moveTo(DDDFF)V"))
+    private void onMoveTo(ServerPlayer player, double x, double y, double z, float yaw, float pitch) {
+        if(!CommonConfig.EnableRandomRespawns.get()) {
+            player.moveTo(x, y, z, yaw, pitch);
+            return;
+        }
+
+        player.moveTo(x + 0.5F, y, z + 0.5F, yaw, pitch);
+    }
+
 
     private boolean isHazard(Block block) {
         return block == Blocks.LAVA || block == Blocks.CACTUS ||

@@ -3,7 +3,8 @@
   "randomrespawns.configgui.random_respawn_radius": "Random Respawn Radius",
   "randomrespawns.configgui.death_position_is_origin": "Death Position is Origin",
   "randomrespawns.configgui.avoid_oceans": "Avoid Oceans",
-  "randomrespawns.configgui.set_time_to_zero_on_death": "Set Time to Zero on Death",
+  "randomrespawns.configgui.set_time_to_zero_on_respawn": "Set Time to Zero on Death",
+  "randomrespawns.configgui.set_weather_clear_on_respawn": "Set Weather Clear on Respawn",
 
   "randomrespawns.message.respawn_time_out": "Finding new respawn location timed out... Defaulting to world origin."
 }
