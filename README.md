@@ -5,7 +5,6 @@ Mod allows you to configure options related to the radius from the world origin 
   
 You can configure the mod by editing the config file generated on startup, or using Configured mod that generates Config GUI from the config file.
   
-* [CurseForge](https://legacy.curseforge.com/minecraft/mc-mods/random-respawns)  
 * [Modrinth](https://modrinth.com/mod/random-respawns)
 
 ## Update 1.1
